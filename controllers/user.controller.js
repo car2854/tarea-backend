@@ -9,7 +9,7 @@ const createUser = async(req, res) => {
     const {name, email, password} = req.body;
 
     const salt = bcrypt.genSaltSync();
-    const passwordEncry = await bcrypt.hashSync(password, salt);
+    const passwordEncry = bcrypt.hashSync(password, salt);
 
     const queryText = 'INSERT INTO usuario(nombre, email, password) VALUES($1, $2, $3)';
     const values = [name, email, passwordEncry];

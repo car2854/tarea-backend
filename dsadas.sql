@@ -1,1 +1,0 @@
-SELECT * FROM usuario WHERE email="carlos@gmail.com";

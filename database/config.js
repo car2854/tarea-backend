@@ -1,16 +1,20 @@
-const { Pool } = require("pg/lib");
+const { Sequelize } = require('sequelize');
 
 const { USER, HOST, PASSWORD, DATABASE} = process.env;
 
-const config = {
-  user: USER,
+const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
   host: HOST,
-  password: PASSWORD,
-  database: DATABASE
-};
+  dialect: 'postgres'
+});
 
-const pool = new Pool(config);
+// const dbConnection = async() => {
+//   try {
+//     await sequelize.authenticate();
+//     console.log('DB Online');
+//   } catch (error) {
+//     console.log(error);
+//     throw new Error('Error a la hora de iniciar la DB ver logs');
+//   }
+// }
 
-pool.connect();
-
-module.exports = {pool};
+module.exports = {sequelize};

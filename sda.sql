@@ -1,0 +1,6 @@
+CREATE TABLE usuarios (
+	id serial PRIMARY KEY,
+	nombre VARCHAR NOT NULL,
+	password VARCHAR NOT NULL,
+	email VARCHAR UNIQUE NOT NULL
+);

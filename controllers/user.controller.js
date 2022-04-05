@@ -1,35 +1,40 @@
 
 const bcrypt = require('bcryptjs');
 
-const { pool } = require('../database/config');
+const User = require('../models/user.model');
 
 const createUser = async(req, res) => {
   try {
-    
-    const {name, email, password} = req.body;
-    
 
-    const queryTextGet = 'SELECT * FROM usuario WHERE email = $1';
-    const respGet = await pool.query(queryTextGet, [email]);
-    console.log(respGet.rowCount);
-    if (respGet.rowCount > 0){
-      return res.status(400).json({
+    const {name, email, password} = req.body;
+
+    const usuarioDB = await User.findOne({
+      where: {
+        email: email
+      }
+    });
+
+    console.log(usuarioDB);
+
+    if (usuarioDB != null){
+      return res.status(401).json({
         ok: false,
-        msg: 'El email ya esta siendo utilizado'
+        msg: "Ese email ya esta siendo utilizado"
       });
     }
 
     const salt = bcrypt.genSaltSync();
     const passwordEncry = bcrypt.hashSync(password, salt);
 
-    const queryTextSave = 'INSERT INTO usuario(nombre, email, password) VALUES($1, $2, $3)';
-    const values = [name, email, passwordEncry];
-
-    const resp = await pool.query(queryTextSave, values);
+    const usuario = await User.create({
+      nombre: name,
+      email: email,
+      password: passwordEncry
+    });
 
     return res.json({
       ok: true,
-      resp
+      usuario
     });
 
   } catch (error) {

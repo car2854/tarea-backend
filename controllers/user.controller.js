@@ -14,8 +14,6 @@ const createUser = async(req, res) => {
       }
     });
 
-    console.log(usuarioDB);
-
     if (usuarioDB != null){
       return res.status(401).json({
         ok: false,

@@ -7,14 +7,4 @@ const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
   dialect: 'postgres'
 });
 
-// const dbConnection = async() => {
-//   try {
-//     await sequelize.authenticate();
-//     console.log('DB Online');
-//   } catch (error) {
-//     console.log(error);
-//     throw new Error('Error a la hora de iniciar la DB ver logs');
-//   }
-// }
-
 module.exports = {sequelize};

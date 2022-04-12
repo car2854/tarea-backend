@@ -20,6 +20,10 @@ const User = sequelize.define('usuario', {
   password: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  isverified: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 }, {
   timestamps: false

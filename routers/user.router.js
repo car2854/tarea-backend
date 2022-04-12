@@ -1,8 +1,14 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
 
-const { createUser } = require('../controllers/user.controller');
 const { validateFields } = require("../middleware/validate_fields");
+
+const { validarToken } = require('../middleware/validar-jwt');
+
+const { 
+  createUser, 
+  verifyAccount 
+} = require('../controllers/user.controller');
 
 const app = Router();
 
@@ -12,5 +18,7 @@ app.post('/', [
   check('password', 'El password es obligatorio').not().isEmpty(),
   validateFields
 ],createUser);
+
+app.put('/verificarCuenta', validarToken, verifyAccount);
 
 module.exports = app;
